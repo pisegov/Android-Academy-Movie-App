@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="guideline_margin_1">148dp</dimen>
+    <dimen name="guideline_margin_2">285dp</dimen>
+
 </resources>

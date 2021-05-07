@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="guideline_margin_1">154dp</dimen>
+    <dimen name="guideline_margin_2">319dp</dimen>
+</resources>
