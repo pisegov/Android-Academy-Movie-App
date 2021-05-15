@@ -3,32 +3,39 @@ package com.myaxa.academycourse
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CardClickListener {
+
+    companion object {
+        const val MOVIES_LIST_FRAGMENT_TAG = "MoviesList"
+        const val MOVIES_DETAILS_FRAGMENT_TAG = "MoviesDetails"
+    }
+
+    private var moviesListFragment: FragmentMoviesList? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_details)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setContentView(R.layout.activity_main)
 
-//        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
+        if (savedInstanceState == null) {
+            moviesListFragment = FragmentMoviesList() //TODO make newInstance(args) method
+            moviesListFragment?.apply {
+                supportFragmentManager.beginTransaction()
+                        .add(R.id.main_frame_layout, this, MOVIES_LIST_FRAGMENT_TAG)
+                        .commit()
+            }
+        } else {
+            moviesListFragment =
+                    supportFragmentManager
+                            .findFragmentByTag(MOVIES_LIST_FRAGMENT_TAG) as? FragmentMoviesList
+        }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_main, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        return when (item.itemId) {
-//            R.id.action_settings -> true
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+    override fun goToDetailsPage() {
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.main_frame_layout, FragmentMoviesDetails(), MOVIES_DETAILS_FRAGMENT_TAG)
+            addToBackStack(MOVIES_DETAILS_FRAGMENT_TAG)
+            commit()
+        }
+    }
+
 }
