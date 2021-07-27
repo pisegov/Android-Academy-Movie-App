@@ -15,7 +15,7 @@ class FragmentMoviesList : Fragment() {
 
     //    private var movieCard: ConstraintLayout? = null
     private var recycler: RecyclerView? = null
-    private var adapter: MoviesAdapter? = null
+    private lateinit var adapter: MoviesAdapter
     private var cardClickListener: OnMovieClicked? = null
 
     companion object {
