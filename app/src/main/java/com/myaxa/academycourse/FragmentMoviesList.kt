@@ -5,13 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.myaxa.academycourse.data.models.Movie
+import com.myaxa.academycourse.domain.MoviesDataSource
 
 class FragmentMoviesList : Fragment() {
 
-    private var movieCard: ConstraintLayout? = null
-    private var cardClickListener: CardClickListener? = null
+    //    private var movieCard: ConstraintLayout? = null
+    private var recycler: RecyclerView? = null
+    private var adapter: MoviesAdapter? = null
+    private var cardClickListener: OnMovieClicked? = null
+
+    companion object {
+        fun newInstance() = FragmentMoviesList()
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -24,27 +33,44 @@ class FragmentMoviesList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movieCard = view.findViewById<ConstraintLayout>(R.id.movie_card)
-        movieCard?.setOnClickListener {
-            cardClickListener?.goToDetailsPage()
+        recycler = view.findViewById(R.id.rv_movies_list)
+        adapter = MoviesAdapter(cardClickListener)
+        recycler?.adapter = adapter
+        recycler?.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+//        recycler?.layoutManager = LinearLayoutManager(requireContext())
+//        movieCard = view.findViewById<ConstraintLayout>(R.id.movie_card)
+//        movieCard?.setOnClickListener {
+//            cardClickListener?.goToDetailsPage()
+//        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        updateData()
+    }
+
+    private fun updateData() {
+        (recycler?.adapter as? MoviesAdapter)?.apply {
+            bindItems(MoviesDataSource().getMovies())
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is CardClickListener) {
+        if (context is OnMovieClicked) {
             cardClickListener = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-
         cardClickListener = null
+        recycler = null
     }
 }
 
-interface CardClickListener {
-    fun goToDetailsPage()
+interface OnMovieClicked {
+    fun goToDetailsPage(movie: Movie)
 }

@@ -2,8 +2,9 @@ package com.myaxa.academycourse
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.myaxa.academycourse.data.models.Movie
 
-class MainActivity : AppCompatActivity(), CardClickListener {
+class MainActivity : AppCompatActivity(), OnMovieClicked {
 
     companion object {
         const val MOVIES_LIST_FRAGMENT_TAG = "MoviesList"
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity(), CardClickListener {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            moviesListFragment = FragmentMoviesList() //TODO make newInstance(args) method
+            moviesListFragment = FragmentMoviesList.newInstance()
             moviesListFragment?.apply {
                 supportFragmentManager.beginTransaction()
                         .add(R.id.main_frame_layout, this, MOVIES_LIST_FRAGMENT_TAG)
@@ -30,12 +31,11 @@ class MainActivity : AppCompatActivity(), CardClickListener {
         }
     }
 
-    override fun goToDetailsPage() {
+    override fun goToDetailsPage(movie: Movie) {
         supportFragmentManager.beginTransaction().apply {
             add(R.id.main_frame_layout, FragmentMoviesDetails(), MOVIES_DETAILS_FRAGMENT_TAG)
             addToBackStack(MOVIES_DETAILS_FRAGMENT_TAG)
             commit()
         }
     }
-
 }
