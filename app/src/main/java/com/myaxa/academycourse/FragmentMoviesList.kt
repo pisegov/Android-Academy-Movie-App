@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.myaxa.academycourse.data.models.Movie
 import com.myaxa.academycourse.domain.MoviesDataSource
 
 class FragmentMoviesList : Fragment() {
@@ -72,5 +71,5 @@ class FragmentMoviesList : Fragment() {
 }
 
 interface OnMovieClicked {
-    fun goToDetailsPage(movie: Movie)
+    fun goToDetailsPage(movieId: Int)
 }

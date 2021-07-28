@@ -24,7 +24,7 @@ class MoviesAdapter(private val clickListener: OnMovieClicked?) :
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.onBind(movies[position])
         holder.itemView.setOnClickListener {
-            clickListener?.goToDetailsPage(movies[position])
+            clickListener?.goToDetailsPage(movies[position].id)
         }
     }
 
