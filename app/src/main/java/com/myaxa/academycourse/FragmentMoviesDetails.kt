@@ -1,15 +1,22 @@
 package com.myaxa.academycourse
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.myaxa.academycourse.data.models.Movie
+import com.myaxa.academycourse.domain.MoviesDataSource
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val MOVIE_ID = "movieId"
 
 /**
  * A simple [Fragment] subclass.
@@ -18,21 +25,70 @@ private const val ARG_PARAM2 = "param2"
  */
 class FragmentMoviesDetails : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var movieId: Int? = null
+    private var actorsRecycler: RecyclerView? = null
+    private lateinit var adapter: ActorsAdapter
+    private var title: TextView? = null
+    private var description: TextView? = null
+    private var movie: Movie? = null
+    private var image: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            movieId = it.getInt(MOVIE_ID)
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movies_details, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        movie = MoviesDataSource().getMovies()[movieId!!]
+        actorsRecycler = view.findViewById(R.id.rv_cast)
+        adapter = ActorsAdapter()
+        title = view.findViewById(R.id.title)
+        description = view.findViewById(R.id.description)
+        image = view.findViewById(R.id.background_image)
+        title?.text = movie?.title
+        description?.text = movie?.description
+
+        Glide.with(context)
+                .load(movie?.image)
+                .into(image)
+
+        actorsRecycler?.adapter = adapter
+        actorsRecycler?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        updateData()
+    }
+
+    private fun updateData() {
+
+        (actorsRecycler?.adapter as? ActorsAdapter)?.apply {
+            bindItems(movie?.cast)
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        actorsRecycler = null
     }
 
     companion object {
@@ -46,11 +102,10 @@ class FragmentMoviesDetails : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(movieId: Int) =
                 FragmentMoviesDetails().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
+                        putInt(MOVIE_ID, movieId)
                     }
                 }
     }
