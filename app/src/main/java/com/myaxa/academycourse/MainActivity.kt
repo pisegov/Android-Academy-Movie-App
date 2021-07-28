@@ -2,7 +2,6 @@ package com.myaxa.academycourse
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.myaxa.academycourse.data.models.Movie
 
 class MainActivity : AppCompatActivity(), OnMovieClicked {
 
@@ -31,9 +30,9 @@ class MainActivity : AppCompatActivity(), OnMovieClicked {
         }
     }
 
-    override fun goToDetailsPage(movie: Movie) {
+    override fun goToDetailsPage(movieId: Int) {
         supportFragmentManager.beginTransaction().apply {
-            add(R.id.main_frame_layout, FragmentMoviesDetails(), MOVIES_DETAILS_FRAGMENT_TAG)
+            add(R.id.main_frame_layout, FragmentMoviesDetails.newInstance(movieId), MOVIES_DETAILS_FRAGMENT_TAG)
             addToBackStack(MOVIES_DETAILS_FRAGMENT_TAG)
             commit()
         }
