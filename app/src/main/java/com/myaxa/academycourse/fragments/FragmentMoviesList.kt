@@ -38,6 +38,7 @@ class FragmentMoviesList : Fragment() {
         adapter = MoviesAdapter(cardClickListener)
         recycler?.adapter = adapter
         recycler?.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        adapter.setHasStableIds(true)
 //        recycler?.layoutManager = LinearLayoutManager(requireContext())
 //        movieCard = view.findViewById<ConstraintLayout>(R.id.movie_card)
 //        movieCard?.setOnClickListener {
