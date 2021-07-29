@@ -1,4 +1,4 @@
-package com.myaxa.academycourse
+package com.myaxa.academycourse.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.myaxa.academycourse.R
 import com.myaxa.academycourse.data.models.Actor
 
 class ActorsAdapter() :

@@ -1,4 +1,4 @@
-package com.myaxa.academycourse
+package com.myaxa.academycourse.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.myaxa.academycourse.R
+import com.myaxa.academycourse.adapters.ActorsAdapter
 import com.myaxa.academycourse.data.models.Movie
 import com.myaxa.academycourse.domain.MoviesDataSource
 
