@@ -33,12 +33,13 @@ class FragmentMoviesList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        adapter = MoviesAdapter(cardClickListener)
+        adapter.setHasStableIds(true)
 
         recycler = view.findViewById(R.id.rv_movies_list)
-        adapter = MoviesAdapter(cardClickListener)
         recycler?.adapter = adapter
         recycler?.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-        adapter.setHasStableIds(true)
 //        recycler?.layoutManager = LinearLayoutManager(requireContext())
 //        movieCard = view.findViewById<ConstraintLayout>(R.id.movie_card)
 //        movieCard?.setOnClickListener {

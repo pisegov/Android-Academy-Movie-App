@@ -1,6 +1,5 @@
 package com.myaxa.academycourse.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,22 +53,22 @@ class FragmentMoviesDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movie = MoviesDataSource().getMovies()[movieId!!]
-        actorsRecycler = view.findViewById(R.id.rv_cast)
         adapter = ActorsAdapter()
-        title = view.findViewById(R.id.title)
-        description = view.findViewById(R.id.description)
-        image = view.findViewById(R.id.background_image)
-        title?.text = movie?.title
-        description?.text = movie?.description
+        adapter.setHasStableIds(true)
 
+        actorsRecycler = view.findViewById(R.id.rv_cast)
+        actorsRecycler?.adapter = adapter
+        actorsRecycler?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        movie = MoviesDataSource().getMovies()[movieId!!]
+        title = view.findViewById(R.id.title)
+        title?.text = movie?.title
+        description = view.findViewById(R.id.description)
+        description?.text = movie?.description
+        image = view.findViewById(R.id.background_image)
         Glide.with(context)
                 .load(movie?.image)
                 .into(image)
-
-        actorsRecycler?.adapter = adapter
-        actorsRecycler?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter.setHasStableIds(true)
     }
 
     override fun onStart() {
@@ -83,10 +82,6 @@ class FragmentMoviesDetails : Fragment() {
         (actorsRecycler?.adapter as? ActorsAdapter)?.apply {
             bindItems(movie?.cast)
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
     }
 
     override fun onDetach() {
