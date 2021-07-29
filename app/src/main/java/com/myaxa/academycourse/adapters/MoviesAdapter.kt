@@ -23,6 +23,10 @@ class MoviesAdapter(private val clickListener: OnMovieClicked?) :
         )
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.onBind(movies[position])
         holder.itemView.setOnClickListener {

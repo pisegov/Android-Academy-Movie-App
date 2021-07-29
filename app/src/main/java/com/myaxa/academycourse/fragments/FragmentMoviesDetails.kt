@@ -69,6 +69,7 @@ class FragmentMoviesDetails : Fragment() {
 
         actorsRecycler?.adapter = adapter
         actorsRecycler?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        adapter.setHasStableIds(true)
     }
 
     override fun onStart() {

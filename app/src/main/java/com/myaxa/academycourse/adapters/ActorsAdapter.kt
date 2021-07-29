@@ -29,6 +29,10 @@ class ActorsAdapter() :
 
     override fun getItemCount(): Int = actors.size
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     fun bindItems(newActors: List<Actor>?) {
         if (newActors != null) {
             actors = newActors
