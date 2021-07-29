@@ -2,6 +2,9 @@ package com.myaxa.academycourse
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.myaxa.academycourse.fragments.FragmentMoviesDetails
+import com.myaxa.academycourse.fragments.FragmentMoviesList
+import com.myaxa.academycourse.fragments.OnMovieClicked
 
 class MainActivity : AppCompatActivity(), OnMovieClicked {
 
