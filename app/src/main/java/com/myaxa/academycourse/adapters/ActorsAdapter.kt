@@ -7,9 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.myaxa.academycourse.R
-import com.myaxa.academycourse.data.models.Actor
+import com.myaxa.academycourse.model.Actor
 
 class ActorsAdapter() :
         RecyclerView.Adapter<ActorsViewHolder>() {
@@ -47,7 +49,7 @@ class ActorsViewHolder(itemView: View) : DataViewHolder(itemView) {
 
     fun onBind(actor: Actor) {
         Glide.with(context)
-                .load(actor.avatar)
+                .load(actor.imageUrl)
                 .apply(imageOption)
                 .into(avatar)
 
@@ -59,6 +61,8 @@ class ActorsViewHolder(itemView: View) : DataViewHolder(itemView) {
         private val imageOption = RequestOptions()
                 .placeholder(R.drawable.actor1)
                 .fallback(R.drawable.actor1)
+                .transforms(CenterCrop(), RoundedCorners(10))
+
     }
 }
 

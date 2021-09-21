@@ -7,10 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.myaxa.academycourse.R
-import com.myaxa.academycourse.data.models.Movie
 import com.myaxa.academycourse.fragments.OnMovieClicked
+import com.myaxa.academycourse.model.Movie
 
 class MoviesAdapter(private val clickListener: OnMovieClicked?) :
         RecyclerView.Adapter<MoviesViewHolder>() {
@@ -45,12 +46,12 @@ class MoviesAdapter(private val clickListener: OnMovieClicked?) :
 abstract class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 class MoviesViewHolder(itemView: View) : DataViewHolder(itemView) {
-    private val image: ImageView = itemView.findViewById<ImageView>(R.id.movie_in_list)
+    private val image: ImageView = itemView.findViewById<ImageView>(R.id.iv_movie_card_image)
     private val title: TextView = itemView.findViewById<TextView>(R.id.title_in_list)
 
     fun onBind(movie: Movie) {
         Glide.with(context)
-                .load(movie.image)
+                .load(movie.imageUrl)
                 .apply(imageOption)
                 .into(image)
 
@@ -62,6 +63,7 @@ class MoviesViewHolder(itemView: View) : DataViewHolder(itemView) {
         private val imageOption = RequestOptions()
                 .placeholder(R.drawable.movie_in_list)
                 .fallback(R.drawable.movie_in_list)
+                .transform(RoundedCorners(20))
     }
 }
 
