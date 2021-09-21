@@ -6,58 +6,38 @@
     android:id="@+id/movie_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/fab_margin"
-    android:background="@color/background"
-    app:layout_constraintEnd_toStartOf="@+id/center_horizontal_guideline"
+    android:layout_margin="6dp"
+    android:background="@drawable/movie_in_list_bg"
+    android:paddingBottom="8dp"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-
-    app:layout_constraintTop_toTopOf="@+id/top_guideline">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/card_bottom_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.82" />
+    app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
-        android:id="@+id/movie_in_list_bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/movie_in_list_bg"
-        android:contentDescription="background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/movie_in_list"
-        android:layout_width="0dp"
+        android:id="@+id/iv_movie_card_image"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="1dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/title"
-        app:layout_constraintBottom_toTopOf="@+id/card_bottom_guideline"
 
-        app:layout_constraintEnd_toEndOf="@id/mask_in_list"
-        app:layout_constraintStart_toStartOf="@id/mask_in_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/movie_in_list" />
 
     <ImageView
-        android:id="@+id/mask_in_list"
+        android:id="@+id/iv_movie_card_mask"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         android:background="@drawable/mask_in_list"
         android:contentDescription="@string/title"
-        app:layout_constraintBottom_toTopOf="@+id/card_bottom_guideline"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_movie_card_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/movie_in_list_bg"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -74,7 +54,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_bottom_guideline" />
+        app:layout_constraintTop_toBottomOf="@id/iv_movie_card_image" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,7 +65,6 @@
         android:text="137 min"
         android:textAppearance="@style/min"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/movie_in_list_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_in_list" />
 
@@ -98,96 +77,89 @@
         android:text="@string/tag_in_list"
         android:textAppearance="@style/tag"
         android:textSize="8sp"
-        app:layout_constraintBottom_toTopOf="@id/card_bottom_guideline"
+        app:layout_constraintBottom_toBottomOf="@id/iv_movie_card_image"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/star_list_1"
-        android:layout_width="13dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="6dp"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:padding="2dp"
+        android:src="@drawable/star_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
 
-        android:layout_marginTop="4dp"
-        android:background="@drawable/star_icon"
-
-        android:backgroundTint="@color/pink"
-        app:layout_constraintBottom_toTopOf="@+id/card_bottom_guideline"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/tag_in_list"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:tint="@color/pink" />
 
     <ImageView
         android:id="@+id/star_list_2"
-        android:layout_width="13dp"
-        android:layout_height="12dp"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
 
-        android:layout_marginTop="4dp"
-        android:background="@drawable/star_icon"
-        android:backgroundTint="@color/pink"
+        android:padding="2dp"
+        android:src="@drawable/star_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
 
-        app:layout_constraintBottom_toTopOf="@+id/card_bottom_guideline"
         app:layout_constraintStart_toEndOf="@+id/star_list_1"
-        app:layout_constraintTop_toBottomOf="@+id/tag_in_list"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:tint="@color/pink" />
 
     <ImageView
         android:id="@+id/star_list_3"
-        android:layout_width="13dp"
-        android:layout_height="12dp"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
+        android:padding="2dp"
 
-        android:layout_marginTop="4dp"
-        android:background="@drawable/star_icon"
-        android:backgroundTint="@color/pink"
+        android:src="@drawable/star_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
 
-        app:layout_constraintBottom_toTopOf="@+id/card_bottom_guideline"
         app:layout_constraintStart_toEndOf="@+id/star_list_2"
-        app:layout_constraintTop_toBottomOf="@+id/tag_in_list"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:tint="@color/pink" />
 
     <ImageView
         android:id="@+id/star_list_4"
-        android:layout_width="13dp"
-        android:layout_height="12dp"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
+        android:padding="2dp"
 
-        android:layout_marginTop="4dp"
-        android:background="@drawable/star_icon"
-        android:backgroundTint="@color/pink"
+        android:src="@drawable/star_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
 
-        app:layout_constraintBottom_toTopOf="@+id/card_bottom_guideline"
         app:layout_constraintStart_toEndOf="@+id/star_list_3"
-        app:layout_constraintTop_toBottomOf="@+id/tag_in_list"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:tint="@color/pink" />
 
     <ImageView
         android:id="@+id/star_list_5"
-        android:layout_width="13dp"
-        android:layout_height="12dp"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
+        android:padding="2dp"
 
-        android:layout_marginTop="4dp"
-        android:background="@drawable/star_icon"
-        android:backgroundTint="@color/dark_grey"
+        android:src="@drawable/star_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
 
-        app:layout_constraintBottom_toTopOf="@+id/card_bottom_guideline"
         app:layout_constraintStart_toEndOf="@+id/star_list_4"
-        app:layout_constraintTop_toBottomOf="@+id/tag_in_list"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:tint="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/reviews_qty_in_list"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_movie_card_reviews"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
 
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center_vertical"
         android:text="@string/reviews"
         android:textAppearance="@style/reviews"
         android:textSize="8sp"
-        app:layout_constraintStart_toEndOf="@+id/star_list_5"
-        app:layout_constraintTop_toBottomOf="@+id/tag_in_list" />
+        app:layout_constraintBottom_toBottomOf="@+id/iv_movie_card_image"
+        app:layout_constraintStart_toEndOf="@+id/star_list_5" />
 
 
     <ImageView
