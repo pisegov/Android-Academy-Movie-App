@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myaxa.academycourse.R
 import com.myaxa.academycourse.adapters.MoviesAdapter
-import com.myaxa.academycourse.domain.MoviesDataSource
+import com.myaxa.academycourse.data.JsonMovieRepository
+import kotlinx.coroutines.*
 
 class FragmentMoviesList : Fragment() {
 
@@ -18,6 +19,7 @@ class FragmentMoviesList : Fragment() {
     private var recycler: RecyclerView? = null
     private lateinit var adapter: MoviesAdapter
     private var cardClickListener: OnMovieClicked? = null
+    private val coroutineScope = CoroutineScope(Job() + Dispatchers.IO)
 
     companion object {
         fun newInstance() = FragmentMoviesList()
@@ -33,7 +35,7 @@ class FragmentMoviesList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         adapter = MoviesAdapter(cardClickListener)
         adapter.setHasStableIds(true)
 
@@ -50,12 +52,19 @@ class FragmentMoviesList : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        updateData()
+        coroutineScope.launch {
+            updateData()
+        }
     }
 
-    private fun updateData() {
+    private suspend fun updateData() = withContext(Dispatchers.Main) {
+        val deferred = coroutineScope.async() {
+            JsonMovieRepository(requireContext()).loadMovies()
+        }
+
         (recycler?.adapter as? MoviesAdapter)?.apply {
-            bindItems(MoviesDataSource().getMovies())
+//            bindItems(MoviesDataSource().getMovies())
+            bindItems(deferred.await())
         }
     }
 
