@@ -14,7 +14,7 @@ interface MovieRepository {
     suspend fun loadMovie(movieId: Int): Movie?
 }
 
-internal class JsonMovieRepository(private val context: Context) : MovieRepository {
+class JsonMovieRepository(private val context: Context) : MovieRepository {
     private val jsonFormat = Json { ignoreUnknownKeys = true }
 
     private var movies: List<Movie>? = null
@@ -55,17 +55,17 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
 
         jsonActors.map { jsonActor ->
             Actor(
-                    id = jsonActor.id,
-                    name = jsonActor.name,
-                    imageUrl = jsonActor.profilePicture
+                id = jsonActor.id,
+                name = jsonActor.name,
+                imageUrl = jsonActor.profilePicture
             )
         }
     }
 
     private fun parseMovies(
-            jsonString: String,
-            genreData: List<Genre>,
-            actors: List<Actor>
+        jsonString: String,
+        genreData: List<Genre>,
+        actors: List<Actor>
     ): List<Movie> {
         val genresMap = genreData.associateBy(Genre::id)
         val actorsMap = actors.associateBy(Actor::id)
@@ -74,22 +74,22 @@ internal class JsonMovieRepository(private val context: Context) : MovieReposito
 
         return jsonMovies.map { jsonMovie ->
             Movie(
-                    id = jsonMovie.id,
-                    title = jsonMovie.title,
-                    storyLine = jsonMovie.overview,
-                    imageUrl = jsonMovie.posterPicture,
-                    detailImageUrl = jsonMovie.backdropPicture,
-                    rating = (jsonMovie.ratings / 2).toInt(),
-                    reviewCount = jsonMovie.votesCount,
-                    pgAge = if (jsonMovie.adult) 16 else 13,
-                    runningTime = jsonMovie.runtime,
-                    genres = jsonMovie.genreIds.map { id ->
-                        genresMap[id].orThrow { IllegalArgumentException("Genre not found") }
-                    },
-                    actors = jsonMovie.actors.map { id ->
-                        actorsMap[id].orThrow { IllegalArgumentException("Actor not found") }
-                    },
-                    isLiked = false
+                id = jsonMovie.id,
+                title = jsonMovie.title,
+                storyLine = jsonMovie.overview,
+                imageUrl = jsonMovie.posterPicture,
+                detailImageUrl = jsonMovie.backdropPicture,
+                rating = (jsonMovie.ratings / 2).toInt(),
+                reviewCount = jsonMovie.votesCount,
+                pgAge = if (jsonMovie.adult) 16 else 13,
+                runningTime = jsonMovie.runtime,
+                genres = jsonMovie.genreIds.map { id ->
+                    genresMap[id].orThrow { IllegalArgumentException("Genre not found") }
+                },
+                actors = jsonMovie.actors.map { id ->
+                    actorsMap[id].orThrow { IllegalArgumentException("Actor not found") }
+                },
+                isLiked = false
             )
         }
     }
