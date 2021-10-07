@@ -1,8 +1,10 @@
 package com.myaxa.academycourse.moviedetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -33,10 +35,16 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
     private var genres: TextView? = null
     private var pg: TextView? = null
     private var starsList: MutableList<ImageView?> = mutableListOf()
+    private var backButton: LinearLayout? = null
+    private var backListener: OnBackButtonListener? = null
 
-//    private val viewModel: MovieDetailsViewModel by viewModels {
-//        MovieDetailsViewModelFactory((requireActivity() as MovieRepositoryProvider).provideMovieRepository())
-//    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is OnBackButtonListener)
+            backListener = context
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -123,6 +131,11 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
         genres = view.findViewById(R.id.tv_genres)
         reviewsNumber = view.findViewById(R.id.tv_reviews_number)
         pg = view.findViewById(R.id.tv_pg)
+        backButton = view.findViewById(R.id.button_back)
+
+        backButton?.setOnClickListener {
+            backListener?.onBackClicked()
+        }
 
         starsList.apply {
             add(view.findViewById(R.id.star_1))
@@ -143,6 +156,7 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
         reviewsNumber = null
         genres = null
         pg = null
+        backButton = null
 
         starsList.clear()
     }
@@ -150,6 +164,17 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
     override fun onDestroyView() {
         closeViews()
         super.onDestroyView()
+    }
+
+    override fun onDetach() {
+        backListener = null
+
+        super.onDetach()
+    }
+
+
+    interface OnBackButtonListener {
+        fun onBackClicked()
     }
 
     companion object {

@@ -6,10 +6,10 @@ import com.myaxa.academycourse.data.JsonMovieRepository
 import com.myaxa.academycourse.data.MovieRepository
 import com.myaxa.academycourse.moviedetails.FragmentMoviesDetails
 import com.myaxa.academycourse.movies.FragmentMoviesList
-import com.myaxa.academycourse.movies.OnMovieClicked
 
 class MainActivity : AppCompatActivity(),
-    OnMovieClicked,
+    FragmentMoviesList.OnMovieListener,
+    FragmentMoviesDetails.OnBackButtonListener,
     MovieRepositoryProvider {
 
     companion object {
@@ -24,6 +24,18 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        goToListPage(savedInstanceState)
+    }
+
+    override fun onMovieClicked(movieId: Int) {
+        goToMovieDetailsPage(movieId)
+    }
+
+    override fun onBackClicked() {
+        goBack()
+    }
+
+    private fun goToListPage(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             moviesListFragment = FragmentMoviesList.newInstance()
             moviesListFragment?.apply {
@@ -38,7 +50,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun goToDetailsPage(movieId: Int) {
+    private fun goToMovieDetailsPage(movieId: Int) {
         supportFragmentManager.beginTransaction().apply {
             add(
                 R.id.main_frame_layout,
@@ -48,6 +60,10 @@ class MainActivity : AppCompatActivity(),
             addToBackStack(MOVIES_DETAILS_FRAGMENT_TAG)
             commit()
         }
+    }
+
+    private fun goBack() {
+        supportFragmentManager.popBackStack()
     }
 
     override fun provideMovieRepository(): MovieRepository = jsonMovieRepository

@@ -58,41 +58,40 @@
             app:layout_constraintGuide_begin="@dimen/guideline_margin_2"
             app:layout_constraintTop_toBottomOf="parent" />
 
-        <ImageView
-            android:id="@+id/arrow_back"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/arrow_back"
-            android:backgroundTint="#6D6D80"
-            app:layout_constraintBottom_toBottomOf="@+id/back"
-            app:layout_constraintEnd_toStartOf="@+id/back"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/back"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/back"
+        <LinearLayout
+            android:id="@+id/button_back"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-
-            android:layout_marginTop="44dp"
-            android:alpha="0.5"
-            android:gravity="center_horizontal|center_vertical"
-            android:lineSpacingExtra="2sp"
-            android:text="@string/back"
-            android:textAppearance="@style/back"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="34dp"
+            android:padding="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/arrow_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:src="@drawable/arrow_back"
+                app:tint="#6D6D80"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:alpha="0.5"
+                android:gravity="center_horizontal|center_vertical"
+                android:lineSpacingExtra="2sp"
+                android:text="@string/back"
+                android:textAppearance="@style/back" />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_pg"
