@@ -1,4 +1,4 @@
-package com.myaxa.academycourse.adapters
+package com.myaxa.academycourse.moviedetails
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +12,17 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.myaxa.academycourse.R
 import com.myaxa.academycourse.model.Actor
+import com.myaxa.academycourse.movies.DataViewHolder
 
 class ActorsAdapter() :
-        RecyclerView.Adapter<ActorsViewHolder>() {
+    RecyclerView.Adapter<ActorsViewHolder>() {
 
     private var actors = listOf<Actor>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorsViewHolder {
         return ActorsViewHolder(
-                LayoutInflater.from(parent.context)
-                        .inflate(R.layout.view_holder_actor, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.view_holder_actor, parent, false)
         )
     }
 
@@ -49,9 +50,9 @@ class ActorsViewHolder(itemView: View) : DataViewHolder(itemView) {
 
     fun onBind(actor: Actor) {
         Glide.with(context)
-                .load(actor.imageUrl)
-                .apply(imageOption)
-                .into(avatar)
+            .load(actor.imageUrl)
+            .apply(imageOption)
+            .into(avatar)
 
         name.text = actor.name
     }
@@ -59,9 +60,9 @@ class ActorsViewHolder(itemView: View) : DataViewHolder(itemView) {
 
     companion object {
         private val imageOption = RequestOptions()
-                .placeholder(R.drawable.actor1)
-                .fallback(R.drawable.actor1)
-                .transforms(CenterCrop(), RoundedCorners(10))
+            .placeholder(R.drawable.actor1)
+            .fallback(R.drawable.actor1)
+            .transforms(CenterCrop(), RoundedCorners(10))
 
     }
 }
