@@ -57,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_movie_card_image" />
 
     <TextView
+        android:id="@+id/tv_length_movie_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -69,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@id/title_in_list" />
 
     <TextView
-        android:id="@+id/tag_in_list"
+        android:id="@+id/tv_genres_movie_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -87,10 +88,10 @@
         android:layout_marginStart="8dp"
         android:padding="2dp"
         android:src="@drawable/star_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_reviews_movie_card"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintTop_toTopOf="@+id/tv_reviews_movie_card"
         app:tint="@color/pink" />
 
     <ImageView
@@ -100,10 +101,10 @@
 
         android:padding="2dp"
         android:src="@drawable/star_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_reviews_movie_card"
 
         app:layout_constraintStart_toEndOf="@+id/star_list_1"
-        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintTop_toTopOf="@+id/tv_reviews_movie_card"
         app:tint="@color/pink" />
 
     <ImageView
@@ -113,10 +114,10 @@
         android:padding="2dp"
 
         android:src="@drawable/star_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_reviews_movie_card"
 
         app:layout_constraintStart_toEndOf="@+id/star_list_2"
-        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintTop_toTopOf="@+id/tv_reviews_movie_card"
         app:tint="@color/pink" />
 
     <ImageView
@@ -126,10 +127,10 @@
         android:padding="2dp"
 
         android:src="@drawable/star_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_reviews_movie_card"
 
         app:layout_constraintStart_toEndOf="@+id/star_list_3"
-        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintTop_toTopOf="@+id/tv_reviews_movie_card"
         app:tint="@color/pink" />
 
     <ImageView
@@ -139,14 +140,14 @@
         android:padding="2dp"
 
         android:src="@drawable/star_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_reviews_movie_card"
 
         app:layout_constraintStart_toEndOf="@+id/star_list_4"
-        app:layout_constraintTop_toTopOf="@+id/tv_movie_card_reviews"
+        app:layout_constraintTop_toTopOf="@+id/tv_reviews_movie_card"
         app:tint="@color/dark_grey" />
 
     <TextView
-        android:id="@+id/tv_movie_card_reviews"
+        android:id="@+id/tv_reviews_movie_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -163,7 +164,7 @@
 
 
     <ImageView
-        android:id="@+id/pg_rectangle"
+        android:id="@+id/pg_rectangle_movie_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -174,15 +175,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_pg_movie_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pg"
         android:textAppearance="@style/pg"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/pg_rectangle"
-        app:layout_constraintEnd_toEndOf="@id/pg_rectangle"
-        app:layout_constraintStart_toStartOf="@id/pg_rectangle"
-        app:layout_constraintTop_toTopOf="@id/pg_rectangle" />
+        app:layout_constraintBottom_toBottomOf="@id/pg_rectangle_movie_card"
+        app:layout_constraintEnd_toEndOf="@id/pg_rectangle_movie_card"
+        app:layout_constraintStart_toStartOf="@id/pg_rectangle_movie_card"
+        app:layout_constraintTop_toTopOf="@id/pg_rectangle_movie_card" />
 
     <ImageView
         android:layout_width="wrap_content"
