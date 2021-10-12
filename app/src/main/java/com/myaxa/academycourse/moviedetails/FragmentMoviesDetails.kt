@@ -81,11 +81,8 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
         reviewsNumber?.text = movie.reviewCount.toString() + " Reviews"
         pg?.text = "${movie.pgAge}+"
 
-        var genresString: String = ""
-        movie.genres.forEach { genre ->
-            genresString += "${genre.name}, "
-        }
-        genres?.text = genresString.removeSuffix(", ")
+        genres?.text =
+            movie.genres.joinToString(separator = ", ", transform = { genre -> genre.name })
 
         starsList.forEachIndexed { index, star ->
             val colorId = if (movie.rating > index) R.color.pink else R.color.dark_grey
