@@ -1,8 +1,8 @@
 # Android Academy Movie App
 Android application for watching movie information
 
-![list](https://user-images.githubusercontent.com/58353454/137172714-6d1aa00f-c1d3-4841-80a4-c9dbaa3cfa8d.jpg)
-![details](https://user-images.githubusercontent.com/58353454/137172728-cdcf3b09-48cf-449c-be62-684b70c9541f.jpg)
+![list](https://user-images.githubusercontent.com/58353454/137198409-55fd462f-c052-4275-b97c-4cd7064467ee.jpg)
+![details](https://user-images.githubusercontent.com/58353454/137198419-0defd84a-c20c-4644-920f-a63bf5891790.jpg)
 
 # Purpose
 Application created by doing homework for <a href="https://www.youtube.com/playlist?list=PLjLCGE4bVpHCJvtGpEVl-4IYGHB1A8FCc">Android Fundamentals (youtube)</a>  course by <a href="https://www.youtube.com/channel/UCmkVThwbjthEg2RR4iuDQWA">Android Academy (youtube)</a>.
