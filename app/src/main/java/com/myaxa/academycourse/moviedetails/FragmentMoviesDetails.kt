@@ -15,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.myaxa.academycourse.MovieRepositoryProvider
 import com.myaxa.academycourse.R
-import com.myaxa.academycourse.model.Movie
+import com.myaxa.academycourse.model.Actor
+import com.myaxa.academycourse.model.MovieDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -64,43 +65,43 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
             .get(MovieDetailsViewModel::class.java)
 
         // subscribing at movie live data
-        viewModel.movie.observe(this.viewLifecycleOwner) { movieData ->
+        viewModel.movieDetails.observe(this.viewLifecycleOwner) { movieData ->
             lifecycleScope.launch {
                 movieData?.let { setMovie(it) } ?: showMovieNotFoundError()
             }
         }
     }
 
-    private suspend fun setMovie(movie: Movie) = withContext(Dispatchers.Main) {
+    private suspend fun setMovie(movieDetails: MovieDetails) = withContext(Dispatchers.Main) {
         Glide.with(context)
-            .load(movie.detailImageUrl)
+            .load(movieDetails.detailImageUrl)
             .into(backgroundImage)
 
-        title?.text = movie.title
-        description?.text = movie.storyLine
-        reviewsNumber?.text = movie.reviewCount.toString() + " Reviews"
-        pg?.text = "${movie.pgAge}+"
+        title?.text = movieDetails.title
+        description?.text = movieDetails.storyLine
+        reviewsNumber?.text = movieDetails.reviewCount.toString() + " Reviews"
+        pg?.text = "${movieDetails.pgAge}+"
 
         genres?.text =
-            movie.genres.joinToString(separator = ", ", transform = { genre -> genre.name })
+            movieDetails.genres.joinToString(separator = ", ", transform = { genre -> genre.name })
 
         starsList.forEachIndexed { index, star ->
-            val colorId = if (movie.rating > index) R.color.pink else R.color.dark_grey
+            val colorId = if (movieDetails.rating > index) R.color.pink else R.color.dark_grey
             star?.setColorFilter(requireContext().getColor(colorId))
         }
 
-        if (movie.actors.isEmpty()) {
+        if (movieDetails.actors.isEmpty()) {
             castTextView?.visibility = View.GONE
             actorsListRecycler?.visibility = View.GONE
         } else {
-            bindActors(movie)
+            bindActors(movieDetails.actors)
         }
     }
 
-    private suspend fun bindActors(movie: Movie) = withContext(Dispatchers.Main) {
+    private suspend fun bindActors(actors: List<Actor>) = withContext(Dispatchers.Main) {
         // binding actors list to recycler view's adapter
         (actorsListRecycler?.adapter as? ActorsAdapter)?.apply {
-            bindItems(movie.actors)
+            bindItems(actors)
         }
     }
 

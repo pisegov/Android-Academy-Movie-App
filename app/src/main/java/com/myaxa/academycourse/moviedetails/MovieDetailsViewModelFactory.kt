@@ -6,7 +6,7 @@ import com.myaxa.academycourse.data.MovieRepository
 
 class MovieDetailsViewModelFactory(
     private val repository: MovieRepository,
-    private val movieId: Int
+    private val movieId: Int,
 ) :
     ViewModelProvider.Factory {
 
