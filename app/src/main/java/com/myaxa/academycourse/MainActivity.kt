@@ -2,11 +2,13 @@ package com.myaxa.academycourse
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.myaxa.academycourse.data.JsonMovieRepository
 import com.myaxa.academycourse.data.MovieRepository
+import com.myaxa.academycourse.data.RetrofitMovieRepository
 import com.myaxa.academycourse.moviedetails.FragmentMoviesDetails
 import com.myaxa.academycourse.movies.FragmentMoviesList
+import kotlinx.serialization.ExperimentalSerializationApi
 
+@ExperimentalSerializationApi
 class MainActivity : AppCompatActivity(),
     FragmentMoviesList.OnMovieListener,
     FragmentMoviesDetails.OnBackButtonListener,
@@ -17,7 +19,7 @@ class MainActivity : AppCompatActivity(),
         const val MOVIES_DETAILS_FRAGMENT_TAG = "MoviesDetails"
     }
 
-    private val jsonMovieRepository = JsonMovieRepository(this)
+    private val movieRepository = RetrofitMovieRepository()
     private var moviesListFragment: FragmentMoviesList? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,5 +68,5 @@ class MainActivity : AppCompatActivity(),
         supportFragmentManager.popBackStack()
     }
 
-    override fun provideMovieRepository(): MovieRepository = jsonMovieRepository
+    override fun provideMovieRepository(): MovieRepository = movieRepository
 }
