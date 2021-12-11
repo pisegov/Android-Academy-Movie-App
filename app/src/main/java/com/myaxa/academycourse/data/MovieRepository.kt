@@ -72,8 +72,8 @@ class RetrofitMovieRepository : MovieRepository {
             storyLine = movie.overview,
             pgAge = if (movie.adult) 16 else 13,
             genres = movie.genres.map { genre -> Genre(genre.id, genre.name) },
-            reviewCount = movie.revenue,
-            rating = movie.popularity.toInt(),
+            reviewCount = movie.voteCount,
+            rating = (movie.voteAverage / 2).toInt(),
             isLiked = false,
             detailImageUrl = imagesApiUrls.secureBaseUrl
                     + imagesApiUrls.posterSizes[imagesApiUrls.posterSizes.size - 2]

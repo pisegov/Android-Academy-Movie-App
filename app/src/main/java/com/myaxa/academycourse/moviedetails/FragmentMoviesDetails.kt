@@ -81,12 +81,13 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
         description?.text = movieDetails.storyLine
         reviewsNumber?.text = movieDetails.reviewCount.toString() + " Reviews"
         pg?.text = "${movieDetails.pgAge}+"
-
+        val rating = movieDetails.rating
+        
         genres?.text =
             movieDetails.genres.joinToString(separator = ", ", transform = { genre -> genre.name })
 
         starsList.forEachIndexed { index, star ->
-            val colorId = if (movieDetails.rating > index) R.color.pink else R.color.dark_grey
+            val colorId = if (rating > index) R.color.pink else R.color.dark_grey
             star?.setColorFilter(requireContext().getColor(colorId))
         }
 
