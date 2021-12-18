@@ -3,7 +3,7 @@ package com.myaxa.academycourse
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.myaxa.academycourse.data.MovieRepository
-import com.myaxa.academycourse.data.RetrofitMovieRepository
+import com.myaxa.academycourse.data.MovieRepositoryImpl
 import com.myaxa.academycourse.moviedetails.FragmentMoviesDetails
 import com.myaxa.academycourse.movies.FragmentMoviesList
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(),
         const val MOVIES_DETAILS_FRAGMENT_TAG = "MoviesDetails"
     }
 
-    private val movieRepository = RetrofitMovieRepository()
+    private val movieRepository = MovieRepositoryImpl()
     private var moviesListFragment: FragmentMoviesList? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
