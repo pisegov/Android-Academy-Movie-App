@@ -56,7 +56,7 @@ class NetworkDataSource {
     }
 
     suspend fun loadMovie(movieId: Int): MovieDetails {
-        val movie = RetrofitModule.moviesApi.getMovie(movieId)
+        val movie = RetrofitModule.moviesApi.getMovieDetails(movieId)
 
         return MovieDetails(
             actors = loadActors(movieId),

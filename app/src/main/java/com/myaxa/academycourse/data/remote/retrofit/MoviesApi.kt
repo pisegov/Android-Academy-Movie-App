@@ -12,7 +12,7 @@ interface MoviesApi {
     suspend fun getMovies(): MoviesListResponse
 
     @GET("movie/{movie_id}")
-    suspend fun getMovie(
+    suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,
     ): MovieDetailsResponse
 
