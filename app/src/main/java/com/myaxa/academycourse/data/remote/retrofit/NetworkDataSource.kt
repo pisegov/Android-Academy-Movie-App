@@ -2,7 +2,6 @@ package com.myaxa.academycourse.data.remote.retrofit
 
 import com.myaxa.academycourse.data.remote.retrofit.response.ImageResponse
 import com.myaxa.academycourse.model.Actor
-import com.myaxa.academycourse.model.Genre
 import com.myaxa.academycourse.model.Movie
 import com.myaxa.academycourse.model.MovieDetails
 import kotlinx.coroutines.CoroutineScope
@@ -50,7 +49,7 @@ class NetworkDataSource {
                 runningTime = movie.runtime,
                 genres = genres
                     .filter { genreResponse -> movie.genreIds.contains(genreResponse.id) }
-                    .map { genreResponse -> Genre(genreResponse.id, genreResponse.name) },
+                    .joinToString(", ") { genre -> genre.name },
                 isLiked = false
             )
         }
@@ -65,7 +64,8 @@ class NetworkDataSource {
             title = movie.title,
             storyLine = movie.overview,
             pgAge = if (movie.adult) 16 else 13,
-            genres = movie.genres.map { genre -> Genre(genre.id, genre.name) },
+            genres = movie.genres
+                .joinToString(", ") { genre -> genre.name },
             reviewCount = movie.voteCount,
             rating = (movie.voteAverage / 2).toInt(),
             isLiked = false,

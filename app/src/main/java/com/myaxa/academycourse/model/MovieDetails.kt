@@ -3,7 +3,7 @@ package com.myaxa.academycourse.model
 data class MovieDetails(
     val pgAge: Int = 0,
     val detailImageUrl: String = "",
-    val genres: List<Genre> = listOf(),
+    val genres: String = "",
     val homepage: String = "",
     val id: Int = 0,
     val storyLine: String = "",

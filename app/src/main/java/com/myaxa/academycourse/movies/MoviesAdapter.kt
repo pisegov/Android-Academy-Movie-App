@@ -73,9 +73,8 @@ class MoviesViewHolder(itemView: View) : DataViewHolder(itemView) {
 
         length.text = "${movie.runningTime} MIN"
 
-        genres.text =
-            movie.genres.joinToString(separator = ", ", transform = { genre -> genre.name })
-
+        genres.text = movie.genres
+        
         starsList.forEachIndexed { index, star ->
             val colorId = if (movie.rating > index) R.color.pink else R.color.dark_grey
             star.setColorFilter(context.getColor(colorId))
