@@ -38,6 +38,13 @@ class MoviesListViewModel(private val repository: MovieRepository) : ViewModel()
         }
 
     private suspend fun loadMovies() {
+        val localMovies = withContext(Dispatchers.IO) {
+            repository.getLocalMovies()
+        }
+
+        if (localMovies.isNotEmpty()) {
+            _movies.value = localMovies
+        }
 
         val remoteMoviesResult = withContext(Dispatchers.IO) {
             repository.loadMovies()

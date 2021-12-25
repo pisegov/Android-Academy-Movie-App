@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.myaxa.academycourse.data.MovieRepository
 import com.myaxa.academycourse.data.MovieRepositoryImpl
+import com.myaxa.academycourse.data.local.AppDatabase
+import com.myaxa.academycourse.data.local.LocalDataSource
 import com.myaxa.academycourse.moviedetails.FragmentMoviesDetails
 import com.myaxa.academycourse.movies.FragmentMoviesList
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -19,13 +21,18 @@ class MainActivity : AppCompatActivity(),
         const val MOVIES_DETAILS_FRAGMENT_TAG = "MoviesDetails"
     }
 
-    private val movieRepository = MovieRepositoryImpl()
+    private lateinit var movieRepository: MovieRepository
     private var moviesListFragment: FragmentMoviesList? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        movieRepository = MovieRepositoryImpl(
+            localDataSource = LocalDataSource(
+                AppDatabase.createInstance(applicationContext)
+            )
+        )
         goToListPage(savedInstanceState)
     }
 
