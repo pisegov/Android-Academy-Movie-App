@@ -3,6 +3,7 @@ package com.myaxa.academycourse.movies
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,7 +35,17 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
                 bindItems(moviesList)
             }
         }
-
+        val toast = Toast.makeText(context, "Loading...", Toast.LENGTH_LONG)
+        viewModel.loadingState.observe(this.viewLifecycleOwner) { loading ->
+            when (loading) {
+                true -> {
+                    toast.show()
+                }
+                else -> {
+                    toast.cancel()
+                }
+            }
+        }
         viewModel.errorMessage.observe(this.viewLifecycleOwner) { message ->
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }

@@ -13,10 +13,12 @@ import kotlinx.coroutines.withContext
 
 class MoviesListViewModel(private val repository: MovieRepository) : ViewModel() {
     private var _movies = MutableLiveData<List<Movie>>()
+    private var _loadingState = MutableLiveData<Boolean>(false)
     private var _errorMessage = MutableLiveData<String>()
 
     val movies: LiveData<List<Movie>>
         get() = _movies
+    val loadingState: LiveData<Boolean> = _loadingState
     val errorMessage: LiveData<String> = _errorMessage
 
     init {
@@ -38,6 +40,8 @@ class MoviesListViewModel(private val repository: MovieRepository) : ViewModel()
         }
 
     private suspend fun loadMovies() {
+        _loadingState.value = true
+
         val localMovies = withContext(Dispatchers.IO) {
             repository.getLocalMovies()
         }
@@ -45,6 +49,8 @@ class MoviesListViewModel(private val repository: MovieRepository) : ViewModel()
         if (localMovies.isNotEmpty()) {
             _movies.value = localMovies
         }
+
+        _loadingState.value = false
 
         val remoteMoviesResult = withContext(Dispatchers.IO) {
             repository.loadMovies()
@@ -70,5 +76,20 @@ class MoviesListViewModel(private val repository: MovieRepository) : ViewModel()
             }
         }
     }
+
+//    private fun executeMethodWithLoading(method: suspend () -> List<Movie>) {
+//        val isLoadingNow = loadingState.value ?: false
+//        if (!isLoadingNow) {
+//            viewModelScope.launch {
+//                _loadingState.value = true
+//
+//                val updatedMovies = method()
+//
+//                _movies.value = updatedMovies
+//
+//                _loadingState.value = false
+//            }
+//        }
+//    }
 
 }
