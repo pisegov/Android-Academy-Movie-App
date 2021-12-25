@@ -35,6 +35,9 @@ class FragmentMoviesList : Fragment(R.layout.fragment_movies_list) {
             }
         }
 
+        viewModel.errorMessage.observe(this.viewLifecycleOwner) { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupRecycler(view: View) {

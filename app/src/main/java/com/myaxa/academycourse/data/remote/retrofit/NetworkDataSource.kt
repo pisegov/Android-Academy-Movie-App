@@ -4,36 +4,15 @@ import com.myaxa.academycourse.data.remote.retrofit.response.ImageResponse
 import com.myaxa.academycourse.model.Actor
 import com.myaxa.academycourse.model.Movie
 import com.myaxa.academycourse.model.MovieDetails
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @ExperimentalSerializationApi
 class NetworkDataSource {
-    private var movies: List<Movie>? = null
     private lateinit var imagesApiUrls: ImageResponse
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
-
-    init {
-        coroutineScope.launch {
-            loadImagesConfig()
-        }
-    }
 
     suspend fun loadMovies(): List<Movie> = withContext(Dispatchers.IO) {
-        val cachedMovies = movies
-        if (cachedMovies != null) {
-            cachedMovies
-        } else {
-            val moviesFromSource = loadMoviesFromSource()
-            movies = moviesFromSource
-            moviesFromSource
-        }
-    }
-
-    private suspend fun loadMoviesFromSource(): List<Movie> = withContext(Dispatchers.IO) {
         val genres = RetrofitModule.moviesApi.getGenres().genres
         val data = RetrofitModule.moviesApi.getMovies().results
 
@@ -87,7 +66,7 @@ class NetworkDataSource {
         }
     }
 
-    private suspend fun loadImagesConfig() = withContext(Dispatchers.IO) {
+    suspend fun loadImagesConfig() = withContext(Dispatchers.IO) {
         imagesApiUrls = RetrofitModule.moviesApi.getApiConfiguration().images
     }
 }
