@@ -1,6 +1,6 @@
 package com.myaxa.academycourse.data.local
 
-import com.myaxa.academycourse.data.local.movies.MovieEntity
+import com.myaxa.academycourse.data.local.entities.MovieEntity
 import com.myaxa.academycourse.model.Movie
 
 class LocalDataSource(private val database: AppDatabase) {

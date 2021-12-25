@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.myaxa.academycourse.data.local.movies.MovieEntity
-import com.myaxa.academycourse.data.local.movies.MoviesDao
+import com.myaxa.academycourse.data.local.daos.MoviesDao
+import com.myaxa.academycourse.data.local.entities.MovieEntity
 
 @Database(entities = [MovieEntity::class/*, MovieDetailsEntity::class*/], version = 1)
 abstract class AppDatabase : RoomDatabase() {

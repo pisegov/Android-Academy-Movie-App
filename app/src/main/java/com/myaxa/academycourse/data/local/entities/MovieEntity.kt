@@ -1,4 +1,4 @@
-package com.myaxa.academycourse.data.local.movies
+package com.myaxa.academycourse.data.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
