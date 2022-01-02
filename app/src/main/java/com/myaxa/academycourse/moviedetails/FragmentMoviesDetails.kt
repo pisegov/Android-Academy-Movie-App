@@ -70,6 +70,9 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
                 movieData?.let { setMovie(it) } ?: showMovieNotFoundError()
             }
         }
+        viewModel.errorMessage.observe(this.viewLifecycleOwner) { errorMessage ->
+            showMovieNotFoundError(errorMessage)
+        }
     }
 
     private suspend fun setMovie(movieDetails: MovieDetails) = withContext(Dispatchers.Main) {
@@ -105,10 +108,10 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
         }
     }
 
-    private fun showMovieNotFoundError() {
+    private fun showMovieNotFoundError(text: String = "Error, movie not found") {
         Toast.makeText(
             requireContext(),
-            "Error, movie not found",
+            text,
             Toast.LENGTH_LONG
         ).show()
     }

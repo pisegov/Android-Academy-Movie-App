@@ -23,8 +23,8 @@ class MovieRepositoryImpl(
         return safeApiCall { networkDataSource.loadMovies() }
     }
 
-    override suspend fun loadMovie(movieId: Int): MovieDetails {
-        return networkDataSource.loadMovie(movieId)
+    override suspend fun loadMovie(movieId: Int): NetworkResult<MovieDetails> {
+        return safeApiCall { networkDataSource.loadMovie(movieId) }
     }
 
     override suspend fun addMovies(moviesList: List<Movie>) {
