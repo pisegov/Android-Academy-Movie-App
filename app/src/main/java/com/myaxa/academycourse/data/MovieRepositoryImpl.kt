@@ -5,7 +5,9 @@ import com.myaxa.academycourse.data.remote.retrofit.NetworkDataSource
 import com.myaxa.academycourse.data.remote.retrofit.NetworkResult
 import com.myaxa.academycourse.model.Movie
 import com.myaxa.academycourse.model.MovieDetails
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import retrofit2.HttpException
@@ -16,8 +18,15 @@ class MovieRepositoryImpl(
     private val localDataSource: LocalDataSource
 ) :
     MovieRepository {
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private val networkDataSource = NetworkDataSource()
+
+    init {
+        coroutineScope.launch {
+            loadNetworkConfig()
+        }
+    }
 
     override suspend fun loadMovies(): NetworkResult<List<Movie>> {
         return safeApiCall { networkDataSource.loadMovies() }
@@ -38,7 +47,7 @@ class MovieRepositoryImpl(
 //        TODO("Not yet implemented")
 //    }
 
-    override suspend fun loadNetworkConfig(): NetworkResult<Unit> {
+    private suspend fun loadNetworkConfig(): NetworkResult<Unit> {
         return safeApiCall { networkDataSource.loadImagesConfig() }
     }
 

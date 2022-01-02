@@ -23,21 +23,9 @@ class MoviesListViewModel(private val repository: MovieRepository) : ViewModel()
 
     init {
         viewModelScope.launch {
-            loadConfig()
             loadMovies()
         }
     }
-
-    private suspend fun loadConfig() =
-        when (val configResponse = repository.loadNetworkConfig()) {
-            is NetworkResult.NetworkError -> {
-                _errorMessage.value = "Network error"
-            }
-            is NetworkResult.GenericError -> {
-                _errorMessage.value = configResponse.message
-            }
-            else -> {}
-        }
 
     private suspend fun loadMovies() {
         _loadingState.value = true
