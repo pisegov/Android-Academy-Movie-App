@@ -17,9 +17,11 @@ class MovieDetailsViewModel(
 
     private val _movieDetails = MutableLiveData<MovieDetails>()
     private val _errorMessage = MutableLiveData<String>()
+    private val _loadingState = MutableLiveData<Boolean>(false)
 
     val movieDetails: LiveData<MovieDetails?> = _movieDetails
     val errorMessage: LiveData<String> = _errorMessage
+    val loadingState: LiveData<Boolean> = _loadingState
 
     init {
         viewModelScope.launch {
@@ -30,6 +32,8 @@ class MovieDetailsViewModel(
 
     // public because its interesting to make update functionality
     suspend fun loadDetails() {
+        _loadingState.value = true
+
         when (val detailsResponse = repository.loadMovie(movieId)) {
             is NetworkResult.Success -> {
                 _movieDetails.value = detailsResponse.data
@@ -41,5 +45,6 @@ class MovieDetailsViewModel(
                 _errorMessage.value = "Network error"
             }
         }
+        _loadingState.value = false
     }
 }

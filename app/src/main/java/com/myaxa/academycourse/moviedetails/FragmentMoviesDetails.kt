@@ -73,6 +73,13 @@ class FragmentMoviesDetails : Fragment(R.layout.fragment_movies_details) {
         viewModel.errorMessage.observe(this.viewLifecycleOwner) { errorMessage ->
             showMovieNotFoundError(errorMessage)
         }
+        val loadingToast = Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_LONG)
+        viewModel.loadingState.observe(this.viewLifecycleOwner) { loading ->
+            if (loading)
+                loadingToast.show()
+            else
+                loadingToast.cancel()
+        }
     }
 
     private suspend fun setMovie(movieDetails: MovieDetails) = withContext(Dispatchers.Main) {
